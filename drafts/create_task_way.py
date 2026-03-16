@@ -16,8 +16,8 @@ async def main():
 
     # 1. Планируем выполнение задач (ставим в очередь)
     # create_task работает мгновенно и не ждет старта задачи
-    asyncio.create_task(slow_task("Быстрая", 1))
-    asyncio.create_task(slow_task("Медленная", 2))
+    t1 = asyncio.create_task(slow_task("Быстрая", 1))
+    t2 = asyncio.create_task(slow_task("Медленная", 2))
 
     print("Главная корутина 'main' завершила свою работу.")
 
@@ -26,7 +26,7 @@ async def main():
     # Это позволит задачам хотя бы НАЧАТЬСЯ (вывести первый print).
     # Если убрать эту строку, программа может завершиться мгновенно.
     await asyncio.sleep(0.1)
-
+    await t1,t2
 
 # Запускаем нашу главную корутину
 asyncio.run(main())
